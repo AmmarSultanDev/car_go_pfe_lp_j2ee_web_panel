@@ -44,7 +44,7 @@ class _DriversPageState extends State<DriversPage> {
                 ],
               ),
               // display data
-              DriversDataList(),
+              const DriversDataList(),
             ],
           ),
         ),
