@@ -6,11 +6,13 @@ class DataItem extends StatelessWidget {
     required this.flexValue,
     required this.data,
     this.isImage = false,
+    this.isButton = false,
   });
 
   final int flexValue;
   final String data;
   final bool isImage;
+  final bool isButton;
 
   @override
   Widget build(BuildContext context) {
@@ -20,21 +22,27 @@ class DataItem extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.grey.shade100,
+                color: Theme.of(context).scaffoldBackgroundColor,
               ),
-              child: Image.network(data),
+              child: Image.network(
+                data,
+                errorBuilder: (context, error, stackTrace) {
+                  print('Error loading image: $error');
+                  return const Text('Error loading image');
+                },
+              ),
             ),
           )
         : Expanded(
             flex: flexValue,
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey.shade300),
-                color: Colors.grey.shade100,
+                border: Border.all(color: Theme.of(context).dividerColor),
+                color: Theme.of(context).scaffoldBackgroundColor,
               ),
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: Text(data),
+                child: SelectableText(data),
               ),
             ),
           );

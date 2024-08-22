@@ -52,7 +52,10 @@ class _DriversDataListState extends State<DriversDataList> {
                 children: [
                   DataItem(flexValue: 1, data: driver['uid']),
                   DataItem(
-                      flexValue: 1, data: driver['photoUrl'], isImage: true),
+                    flexValue: 1,
+                    data: driver['photoUrl'],
+                    isImage: true,
+                  ),
                   DataItem(flexValue: 1, data: driver['displayName']),
                   DataItem(flexValue: 1, data: driver['email']),
                   DataItem(flexValue: 1, data: driver['phoneNumber']),

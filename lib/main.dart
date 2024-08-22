@@ -1,6 +1,5 @@
 import 'package:car_go_pfe_lp_j2ee_web_panel/dashboard/side_navigation_drawer.dart';
 import 'package:car_go_pfe_lp_j2ee_web_panel/pages/drivers_page.dart';
-import 'package:car_go_pfe_lp_j2ee_web_panel/pages/home_page.dart';
 import 'package:car_go_pfe_lp_j2ee_web_panel/pages/trips_page.dart';
 import 'package:car_go_pfe_lp_j2ee_web_panel/pages/users_page.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -17,8 +17,8 @@ class HeaderItem extends StatelessWidget {
       flex: flexValue,
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey.shade300),
-          color: Colors.grey.shade200,
+          border: Border.all(color: Theme.of(context).dividerColor),
+          color: Theme.of(context).scaffoldBackgroundColor,
         ),
         child: Padding(
           padding: const EdgeInsets.all(10),
