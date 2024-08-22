@@ -1,3 +1,8 @@
+import 'package:car_go_pfe_lp_j2ee_web_panel/dashboard/side_navigation_drawer.dart';
+import 'package:car_go_pfe_lp_j2ee_web_panel/pages/drivers_page.dart';
+import 'package:car_go_pfe_lp_j2ee_web_panel/pages/home_page.dart';
+import 'package:car_go_pfe_lp_j2ee_web_panel/pages/trips_page.dart';
+import 'package:car_go_pfe_lp_j2ee_web_panel/pages/users_page.dart';
 import 'package:flutter/material.dart';
 import 'web_app_theme.dart'; // Import the theme file
 
@@ -16,14 +21,14 @@ class MainApp extends StatelessWidget {
       darkTheme: WebAppTheme.darkTheme, // Apply the dark theme
       themeMode: ThemeMode
           .system, // Automatically switch between light and dark themes based on system settings
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('My Carpooling App'),
-        ),
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const SideNavigationDrawer(),
+        '/drivers': (context) => const DriversPage(),
+        '/users': (context) => const UsersPage(),
+        '/trips': (context) => const TripsPage(),
+      },
     );
   }
 }
