@@ -5,10 +5,15 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        body: Image.asset('assets/images/admin.png'),
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ConstrainedBox(
+              constraints:
+                  BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
+              child: Image.asset('assets/images/admin.png')),
+        ],
       ),
     );
   }

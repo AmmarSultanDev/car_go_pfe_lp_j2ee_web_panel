@@ -17,6 +17,33 @@ class SideNavigationDrawer extends StatefulWidget {
 }
 
 class _SideNavigationDrawerState extends State<SideNavigationDrawer> {
+  Widget choosenPage = const HomePage();
+
+  sendAdminTo(selectedPage) {
+    // Send the admin to the selected route
+    switch (selectedPage.route) {
+      case DriversPage.routeName:
+        setState(() {
+          choosenPage = const DriversPage();
+        });
+        break;
+      case UsersPage.routeName:
+        setState(() {
+          choosenPage = const UsersPage();
+        });
+        break;
+      case TripsPage.routeName:
+        setState(() {
+          choosenPage = const TripsPage();
+        });
+        break;
+      default:
+        setState(() {
+          choosenPage = const HomePage();
+        });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return AdminScaffold(
@@ -42,9 +69,7 @@ class _SideNavigationDrawerState extends State<SideNavigationDrawer> {
         ],
         selectedRoute: DriversPage.routeName,
         onSelected: (itemSelected) {
-          if (itemSelected.route != null) {
-            Navigator.of(context).pushReplacementNamed(itemSelected.route!);
-          }
+          sendAdminTo(itemSelected);
         },
         header: Container(
           padding: const EdgeInsets.all(20),
