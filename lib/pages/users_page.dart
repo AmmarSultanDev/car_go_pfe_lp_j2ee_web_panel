@@ -1,4 +1,4 @@
-import 'package:car_go_pfe_lp_j2ee_web_panel/widgets/header.dart';
+import 'package:car_go_pfe_lp_j2ee_web_panel/widgets/header_item.dart';
 import 'package:flutter/material.dart';
 
 class UsersPage extends StatefulWidget {
@@ -32,12 +32,12 @@ class _UsersPageState extends State<UsersPage> {
               const SizedBox(height: 24),
               const Row(
                 children: [
-                  Header(flexValue: 1, headerTitle: 'PASSENGER ID'),
-                  Header(flexValue: 1, headerTitle: 'PICTURE'),
-                  Header(flexValue: 1, headerTitle: 'PASSENGER NAME'),
-                  Header(flexValue: 1, headerTitle: 'EMAIL'),
-                  Header(flexValue: 1, headerTitle: 'PHONE'),
-                  Header(flexValue: 1, headerTitle: 'ACTIONS'),
+                  HeaderItem(flexValue: 1, headerTitle: 'PASSENGER ID'),
+                  HeaderItem(flexValue: 1, headerTitle: 'PICTURE'),
+                  HeaderItem(flexValue: 1, headerTitle: 'PASSENGER NAME'),
+                  HeaderItem(flexValue: 1, headerTitle: 'EMAIL'),
+                  HeaderItem(flexValue: 1, headerTitle: 'PHONE'),
+                  HeaderItem(flexValue: 1, headerTitle: 'ACTIONS'),
                 ],
               ),
               // display data

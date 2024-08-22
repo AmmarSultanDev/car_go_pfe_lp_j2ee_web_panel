@@ -1,4 +1,4 @@
-import 'package:car_go_pfe_lp_j2ee_web_panel/widgets/header.dart';
+import 'package:car_go_pfe_lp_j2ee_web_panel/widgets/header_item.dart';
 import 'package:flutter/material.dart';
 
 class TripsPage extends StatefulWidget {
@@ -32,16 +32,16 @@ class _TripsPageState extends State<TripsPage> {
               const SizedBox(height: 24),
               const Row(
                 children: [
-                  Header(flexValue: 1, headerTitle: 'TRIP ID'),
-                  Header(flexValue: 1, headerTitle: 'DRIVER ID'),
-                  Header(flexValue: 1, headerTitle: 'DRIVER NAME'),
-                  Header(flexValue: 1, headerTitle: 'PASSENGER ID'),
-                  Header(flexValue: 1, headerTitle: 'PASSENGER NAME'),
-                  Header(flexValue: 1, headerTitle: 'DRIVER PHONE'),
-                  Header(flexValue: 1, headerTitle: 'CAR DETAILS'),
-                  Header(flexValue: 1, headerTitle: 'TRIP PRICE'),
-                  Header(flexValue: 1, headerTitle: 'TRIP DATE'),
-                  Header(flexValue: 1, headerTitle: 'TRIP DURATION'),
+                  HeaderItem(flexValue: 1, headerTitle: 'TRIP ID'),
+                  HeaderItem(flexValue: 1, headerTitle: 'DRIVER ID'),
+                  HeaderItem(flexValue: 1, headerTitle: 'DRIVER NAME'),
+                  HeaderItem(flexValue: 1, headerTitle: 'PASSENGER ID'),
+                  HeaderItem(flexValue: 1, headerTitle: 'PASSENGER NAME'),
+                  HeaderItem(flexValue: 1, headerTitle: 'DRIVER PHONE'),
+                  HeaderItem(flexValue: 1, headerTitle: 'CAR DETAILS'),
+                  HeaderItem(flexValue: 1, headerTitle: 'TRIP PRICE'),
+                  HeaderItem(flexValue: 1, headerTitle: 'TRIP DATE'),
+                  HeaderItem(flexValue: 1, headerTitle: 'TRIP DURATION'),
                 ],
               ),
               // display data

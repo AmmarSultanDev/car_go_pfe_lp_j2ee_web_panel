@@ -1,4 +1,5 @@
-import 'package:car_go_pfe_lp_j2ee_web_panel/widgets/header.dart';
+import 'package:car_go_pfe_lp_j2ee_web_panel/widgets/drivers_data_list.dart';
+import 'package:car_go_pfe_lp_j2ee_web_panel/widgets/header_item.dart';
 import 'package:flutter/material.dart';
 
 class DriversPage extends StatefulWidget {
@@ -32,17 +33,18 @@ class _DriversPageState extends State<DriversPage> {
               const SizedBox(height: 24),
               const Row(
                 children: [
-                  Header(flexValue: 1, headerTitle: 'DRIVER ID'),
-                  Header(flexValue: 1, headerTitle: 'PICTURE'),
-                  Header(flexValue: 1, headerTitle: 'DRIVER NAME'),
-                  Header(flexValue: 1, headerTitle: 'EMAIL'),
-                  Header(flexValue: 1, headerTitle: 'PHONE'),
-                  Header(flexValue: 1, headerTitle: 'CAR DETAILS'),
-                  Header(flexValue: 1, headerTitle: 'TOTAL EARNINGS'),
-                  Header(flexValue: 1, headerTitle: 'ACTIONS'),
+                  HeaderItem(flexValue: 1, headerTitle: 'DRIVER ID'),
+                  HeaderItem(flexValue: 1, headerTitle: 'PICTURE'),
+                  HeaderItem(flexValue: 1, headerTitle: 'DRIVER NAME'),
+                  HeaderItem(flexValue: 1, headerTitle: 'EMAIL'),
+                  HeaderItem(flexValue: 1, headerTitle: 'PHONE'),
+                  HeaderItem(flexValue: 1, headerTitle: 'CAR DETAILS'),
+                  HeaderItem(flexValue: 1, headerTitle: 'TOTAL EARNINGS'),
+                  HeaderItem(flexValue: 1, headerTitle: 'ACTIONS'),
                 ],
               ),
               // display data
+              DriversDataList(),
             ],
           ),
         ),
