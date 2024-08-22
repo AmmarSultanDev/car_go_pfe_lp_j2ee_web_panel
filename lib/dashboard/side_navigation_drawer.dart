@@ -18,6 +18,7 @@ class SideNavigationDrawer extends StatefulWidget {
 
 class _SideNavigationDrawerState extends State<SideNavigationDrawer> {
   Widget choosenPage = const HomePage();
+  String selectedRoute = '';
 
   sendAdminTo(selectedPage) {
     // Send the admin to the selected route
@@ -25,21 +26,25 @@ class _SideNavigationDrawerState extends State<SideNavigationDrawer> {
       case DriversPage.routeName:
         setState(() {
           choosenPage = const DriversPage();
+          selectedRoute = DriversPage.routeName;
         });
         break;
       case UsersPage.routeName:
         setState(() {
           choosenPage = const UsersPage();
+          selectedRoute = UsersPage.routeName;
         });
         break;
       case TripsPage.routeName:
         setState(() {
           choosenPage = const TripsPage();
+          selectedRoute = TripsPage.routeName;
         });
         break;
       default:
         setState(() {
           choosenPage = const HomePage();
+          selectedRoute = SideNavigationDrawer.routeName;
         });
     }
   }
@@ -67,7 +72,7 @@ class _SideNavigationDrawerState extends State<SideNavigationDrawer> {
               route: TripsPage.routeName,
               icon: CupertinoIcons.location_fill),
         ],
-        selectedRoute: DriversPage.routeName,
+        selectedRoute: selectedRoute,
         onSelected: (itemSelected) {
           sendAdminTo(itemSelected);
         },
@@ -86,7 +91,7 @@ class _SideNavigationDrawerState extends State<SideNavigationDrawer> {
           child: SvgPicture.asset('assets/images/logo-cigma-scroll.svg'),
         ),
       ),
-      body: HomePage(),
+      body: choosenPage,
     );
   }
 }
