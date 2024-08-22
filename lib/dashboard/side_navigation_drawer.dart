@@ -5,6 +5,7 @@ import 'package:car_go_pfe_lp_j2ee_web_panel/pages/users_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin_scaffold/admin_scaffold.dart';
+import 'package:flutter_svg/svg.dart';
 
 class SideNavigationDrawer extends StatefulWidget {
   const SideNavigationDrawer({super.key});
@@ -51,6 +52,13 @@ class _SideNavigationDrawerState extends State<SideNavigationDrawer> {
           height: 240,
           width: 240,
           child: Image.asset('assets/images/side_navigation_header.png'),
+        ),
+        footer: Container(
+          padding: const EdgeInsets.all(20),
+          color: Theme.of(context).secondaryHeaderColor,
+          height: 240,
+          width: 240,
+          child: SvgPicture.asset('assets/images/logo-cigma-scroll.svg'),
         ),
       ),
       body: HomePage(),
