@@ -25,6 +25,7 @@ class FirestoreMethods {
           vehiculeModel: driver['vehiculeModel'],
           vehiculeColor: driver['vehiculeColor'],
           photoUrl: driver['photoUrl'],
+          totalEarnings: driver['totalEarnings'],
         );
         // add driver object to drivers list
         drivers.add(driverObj);

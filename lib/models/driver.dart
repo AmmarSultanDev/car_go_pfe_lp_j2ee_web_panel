@@ -10,6 +10,7 @@ class Driver {
   final String vehiculeModel;
   final String vehiculeColor;
   final String photoUrl;
+  final double totalEarnings;
 
   const Driver({
     required this.id,
@@ -21,6 +22,7 @@ class Driver {
     required this.vehiculeModel,
     required this.vehiculeColor,
     required this.photoUrl,
+    required this.totalEarnings,
   });
 
   static Driver fromSnap(DocumentSnapshot snap) {
@@ -34,6 +36,7 @@ class Driver {
       vehiculeModel: snap['vehiculeModel'] as String,
       vehiculeColor: snap['vehiculeColor'] as String,
       photoUrl: snap['photoUrl'] as String,
+      totalEarnings: snap['totalEarnings'] as double,
     );
   }
 
@@ -48,6 +51,7 @@ class Driver {
       'vehiculeModel': vehiculeModel,
       'vehiculeColor': vehiculeColor,
       'photoUrl': photoUrl,
+      'totalEarnings': totalEarnings,
     };
   }
 }

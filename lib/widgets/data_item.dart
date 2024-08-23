@@ -33,18 +33,35 @@ class DataItem extends StatelessWidget {
               ),
             ),
           )
-        : Expanded(
-            flex: flexValue,
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Theme.of(context).dividerColor),
-                color: Theme.of(context).scaffoldBackgroundColor,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: SelectableText(data),
-              ),
-            ),
-          );
+        : isButton
+            ? Expanded(
+                flex: flexValue,
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Theme.of(context).dividerColor),
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: Text(data == 'true' ? 'Unblock' : 'Block'),
+                    ),
+                  ),
+                ),
+              )
+            : Expanded(
+                flex: flexValue,
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Theme.of(context).dividerColor),
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: SelectableText(data),
+                  ),
+                ),
+              );
   }
 }

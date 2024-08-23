@@ -1,4 +1,5 @@
 import 'package:car_go_pfe_lp_j2ee_web_panel/widgets/header_item.dart';
+import 'package:car_go_pfe_lp_j2ee_web_panel/widgets/users_data_list.dart';
 import 'package:flutter/material.dart';
 
 class UsersPage extends StatefulWidget {
@@ -33,14 +34,16 @@ class _UsersPageState extends State<UsersPage> {
               const Row(
                 children: [
                   HeaderItem(flexValue: 1, headerTitle: 'PASSENGER ID'),
-                  HeaderItem(flexValue: 1, headerTitle: 'PICTURE'),
                   HeaderItem(flexValue: 1, headerTitle: 'PASSENGER NAME'),
                   HeaderItem(flexValue: 1, headerTitle: 'EMAIL'),
                   HeaderItem(flexValue: 1, headerTitle: 'PHONE'),
+                  HeaderItem(flexValue: 1, headerTitle: 'TOTAL EXPENSES'),
+                  HeaderItem(flexValue: 1, headerTitle: 'NUMBER OF TRIPS'),
                   HeaderItem(flexValue: 1, headerTitle: 'ACTIONS'),
                 ],
               ),
               // display data
+              UsersDataList(),
             ],
           ),
         ),

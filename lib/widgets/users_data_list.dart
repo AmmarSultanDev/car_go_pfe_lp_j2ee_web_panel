@@ -3,15 +3,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class DriversDataList extends StatefulWidget {
-  const DriversDataList({super.key});
+class UsersDataList extends StatefulWidget {
+  const UsersDataList({super.key});
 
   @override
-  State<DriversDataList> createState() => _DriversDataListState();
+  State<UsersDataList> createState() => _UsersDataListState();
 }
 
-class _DriversDataListState extends State<DriversDataList> {
-  FirebaseAuth auth = FirebaseAuth.instance;
+class _UsersDataListState extends State<UsersDataList> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   void initState() {
@@ -21,13 +21,13 @@ class _DriversDataListState extends State<DriversDataList> {
   }
 
   void signInAnonymously() async {
-    UserCredential userCredential = await auth.signInAnonymously();
+    UserCredential userCredential = await _auth.signInAnonymously();
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: FirebaseFirestore.instance.collection('drivers').snapshots(),
+      stream: FirebaseFirestore.instance.collection('users').snapshots(),
       builder: (BuildContext context, snapshot) {
         if (snapshot.hasError) {
           return const Center(
@@ -45,30 +45,23 @@ class _DriversDataListState extends State<DriversDataList> {
           shrinkWrap: true,
           itemCount: snapshot.data!.docs.length,
           itemBuilder: (BuildContext context, int index) {
-            DocumentSnapshot driver = snapshot.data!.docs[index];
+            DocumentSnapshot passenger = snapshot.data!.docs[index];
             return Expanded(
               child: Row(
                 children: [
-                  DataItem(flexValue: 1, data: driver['uid']),
-                  DataItem(
-                    flexValue: 1,
-                    data: driver['photoUrl'],
-                    isImage: true,
-                  ),
-                  DataItem(flexValue: 1, data: driver['displayName']),
-                  DataItem(flexValue: 1, data: driver['email']),
-                  DataItem(flexValue: 1, data: driver['phoneNumber']),
+                  DataItem(flexValue: 1, data: passenger['uid']),
+                  DataItem(flexValue: 1, data: passenger['displayName']),
+                  DataItem(flexValue: 1, data: passenger['email']),
+                  DataItem(flexValue: 1, data: passenger['phoneNumber']),
                   DataItem(
                       flexValue: 1,
-                      data: driver['vehiculeNumber'] +
-                          '\n' +
-                          driver['vehiculeModel'] +
-                          '\n' +
-                          driver['vehiculeColor']),
-                  DataItem(flexValue: 1, data: '\$ ${driver['totalEarnings']}'),
+                      data: '\$ ${passenger['totalExpenses'].toString()}'),
                   DataItem(
                       flexValue: 1,
-                      data: driver['isBlocked'].toString(),
+                      data: passenger['numberOfTrips'].toString()),
+                  DataItem(
+                      flexValue: 1,
+                      data: passenger['isBlocked'].toString(),
                       isButton: true),
                 ],
               ),
