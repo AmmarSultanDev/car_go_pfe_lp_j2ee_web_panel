@@ -41,37 +41,59 @@ class _DriversDataListState extends State<DriversDataList> {
           );
         }
 
+        Future<String> getTotalEarnings(String driverId) async {
+          DocumentSnapshot earningsDoc = await FirebaseFirestore.instance
+              .collection('earnings')
+              .doc(driverId)
+              .get();
+          return earningsDoc['totalEarnings'].toString();
+        }
+
         return ListView.builder(
           shrinkWrap: true,
           itemCount: snapshot.data!.docs.length,
           itemBuilder: (BuildContext context, int index) {
             DocumentSnapshot driver = snapshot.data!.docs[index];
-            return Expanded(
-              child: Row(
-                children: [
-                  DataItem(flexValue: 1, data: driver['uid']),
-                  DataItem(
-                    flexValue: 1,
-                    data: driver['photoUrl'],
-                    isImage: true,
-                  ),
-                  DataItem(flexValue: 1, data: driver['displayName']),
-                  DataItem(flexValue: 1, data: driver['email']),
-                  DataItem(flexValue: 1, data: driver['phoneNumber']),
-                  DataItem(
-                      flexValue: 1,
-                      data: driver['vehiculePlateNumber'] +
-                          '\n' +
-                          driver['vehiculeModel'] +
-                          '\n' +
-                          driver['vehiculeColor']),
-                  // DataItem(flexValue: 1, data: '\$ ${driver['totalEarnings']}'),
-                  DataItem(
-                      flexValue: 1,
-                      data: driver['isBlocked'].toString(),
-                      isButton: true),
-                ],
-              ),
+            return FutureBuilder<String>(
+              future: getTotalEarnings(driver['uid']),
+              builder: (BuildContext context,
+                  AsyncSnapshot<String> earningsSnapshot) {
+                if (earningsSnapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                } else if (earningsSnapshot.hasError) {
+                  return Text('Error: ${earningsSnapshot.error}');
+                } else {
+                  return Expanded(
+                    child: Row(
+                      children: [
+                        DataItem(flexValue: 1, data: driver['uid']),
+                        DataItem(
+                          flexValue: 1,
+                          data: driver['photoUrl'],
+                          isImage: true,
+                        ),
+                        DataItem(flexValue: 1, data: driver['displayName']),
+                        DataItem(flexValue: 1, data: driver['email']),
+                        DataItem(flexValue: 1, data: driver['phoneNumber']),
+                        DataItem(
+                            flexValue: 1,
+                            data: driver['vehiculePlateNumber'] +
+                                '\n' +
+                                driver['vehiculeModel'] +
+                                '\n' +
+                                driver['vehiculeColor']),
+                        DataItem(
+                            flexValue: 1, data: '\$ ' + earningsSnapshot.data!),
+                        DataItem(
+                            flexValue: 1,
+                            data: driver['isBlocked'].toString(),
+                            isButton: true),
+                      ],
+                    ),
+                  );
+                }
+              },
             );
           },
         );
