@@ -1,3 +1,4 @@
+import 'package:car_go_pfe_lp_j2ee_web_panel/methods/firestore_methods.dart';
 import 'package:flutter/material.dart';
 
 class DataItem extends StatelessWidget {
@@ -7,12 +8,16 @@ class DataItem extends StatelessWidget {
     required this.data,
     this.isImage = false,
     this.isButton = false,
+    this.driverId,
+    this.passengerId,
   });
 
   final int flexValue;
   final String data;
   final bool isImage;
   final bool isButton;
+  final String? driverId;
+  final String? passengerId;
 
   @override
   Widget build(BuildContext context) {
@@ -20,19 +25,18 @@ class DataItem extends StatelessWidget {
         ? Expanded(
             flex: flexValue,
             child: Container(
+              height: 80,
+              padding: const EdgeInsets.all(2),
               decoration: BoxDecoration(
-                shape: BoxShape.circle,
                 color: Theme.of(context).scaffoldBackgroundColor,
+                border: Border.all(color: Theme.of(context).dividerColor),
               ),
               child: CircleAvatar(
                 radius: 30,
-                child: Image.network(
-                  data,
-                  errorBuilder: (context, error, stackTrace) {
-                    print('Error loading image: $error');
-                    return const Text('Error loading image');
-                  },
-                ),
+                // ignore: unnecessary_null_comparison
+                backgroundImage: data == null || data.isEmpty
+                    ? const AssetImage('assets/images/avatar_man.png')
+                    : NetworkImage(data, scale: 1),
               ),
             ),
           )
@@ -40,14 +44,25 @@ class DataItem extends StatelessWidget {
             ? Expanded(
                 flex: flexValue,
                 child: Container(
+                  height: 80,
                   decoration: BoxDecoration(
                     border: Border.all(color: Theme.of(context).dividerColor),
                     color: Theme.of(context).scaffoldBackgroundColor,
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 24, horizontal: 16),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        // block or unblock driver
+                        if (data == 'true') {
+                          // unblock driver
+                          await FirestoreMethods().unblockDriver(driverId!);
+                        } else {
+                          // block driver
+                          await FirestoreMethods().blockDriver(driverId!);
+                        }
+                      },
                       child: Text(data == 'true' ? 'Unblock' : 'Block'),
                     ),
                   ),
@@ -56,6 +71,7 @@ class DataItem extends StatelessWidget {
             : Expanded(
                 flex: flexValue,
                 child: Container(
+                  height: 80,
                   decoration: BoxDecoration(
                     border: Border.all(color: Theme.of(context).dividerColor),
                     color: Theme.of(context).scaffoldBackgroundColor,

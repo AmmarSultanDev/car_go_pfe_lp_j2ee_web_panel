@@ -37,4 +37,44 @@ class FirestoreMethods {
     print(drivers);
     return drivers;
   }
+
+  blockDriver(String driverId) async {
+    try {
+      await _firestore.collection('drivers').doc(driverId).update({
+        'isBlocked': true,
+      });
+    } catch (e) {
+      // handle error
+    }
+  }
+
+  unblockDriver(String driverId) async {
+    try {
+      await _firestore.collection('drivers').doc(driverId).update({
+        'isBlocked': false,
+      });
+    } catch (e) {
+      // handle error
+    }
+  }
+
+  blockPassenger(String passengerId) async {
+    try {
+      await _firestore.collection('users').doc(passengerId).update({
+        'isBlocked': true,
+      });
+    } catch (e) {
+      // handle error
+    }
+  }
+
+  unblockPassenger(String passengerId) async {
+    try {
+      await _firestore.collection('users').doc(passengerId).update({
+        'isBlocked': false,
+      });
+    } catch (e) {
+      // handle error
+    }
+  }
 }

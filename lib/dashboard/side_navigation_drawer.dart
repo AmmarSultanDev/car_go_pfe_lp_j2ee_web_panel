@@ -2,6 +2,7 @@ import 'package:car_go_pfe_lp_j2ee_web_panel/pages/drivers_page.dart';
 import 'package:car_go_pfe_lp_j2ee_web_panel/pages/home_page.dart';
 import 'package:car_go_pfe_lp_j2ee_web_panel/pages/trips_page.dart';
 import 'package:car_go_pfe_lp_j2ee_web_panel/pages/users_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin_scaffold/admin_scaffold.dart';
@@ -19,6 +20,12 @@ class SideNavigationDrawer extends StatefulWidget {
 class _SideNavigationDrawerState extends State<SideNavigationDrawer> {
   Widget choosenPage = const HomePage();
   String selectedRoute = '';
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  void signInAnonymously() async {
+    await auth.signInAnonymously();
+  }
 
   sendAdminTo(selectedPage) {
     // Send the admin to the selected route
@@ -51,6 +58,7 @@ class _SideNavigationDrawerState extends State<SideNavigationDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    signInAnonymously();
     return AdminScaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(

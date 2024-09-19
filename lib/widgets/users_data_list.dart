@@ -15,13 +15,12 @@ class _UsersDataListState extends State<UsersDataList> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     signInAnonymously();
   }
 
   void signInAnonymously() async {
-    UserCredential userCredential = await _auth.signInAnonymously();
+    await _auth.signInAnonymously();
   }
 
   @override

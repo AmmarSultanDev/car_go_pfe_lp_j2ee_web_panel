@@ -1,6 +1,5 @@
 import 'package:car_go_pfe_lp_j2ee_web_panel/widgets/data_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class DriversDataList extends StatefulWidget {
@@ -11,17 +10,26 @@ class DriversDataList extends StatefulWidget {
 }
 
 class _DriversDataListState extends State<DriversDataList> {
-  FirebaseAuth auth = FirebaseAuth.instance;
+  String splitPlateNumber(String plateNumber) {
+    var splittedPlateNumber = [];
+    plateNumber = plateNumber.replaceAll(' ', ''); // Remove all spaces
+    splittedPlateNumber = plateNumber.split('-');
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    signInAnonymously();
-  }
+    var plateNumberDigits = '';
+    var plateNumberLetter = '';
+    var plateNumberCityCode = '';
 
-  void signInAnonymously() async {
-    UserCredential userCredential = await auth.signInAnonymously();
+    for (String part in splittedPlateNumber) {
+      if (part.length > 2 && part.length <= 5 && part.contains(RegExp(r'\d'))) {
+        plateNumberDigits = part;
+      } else if (part.contains(RegExp(r'[ء-ي]'))) {
+        plateNumberLetter = part;
+      } else if (part.length <= 2 && part.contains(RegExp(r'\d'))) {
+        plateNumberCityCode = part;
+      }
+    }
+
+    return '$plateNumberDigits | \u200F$plateNumberLetter\u200E | $plateNumberCityCode';
   }
 
   @override
@@ -60,7 +68,9 @@ class _DriversDataListState extends State<DriversDataList> {
                   AsyncSnapshot<String> earningsSnapshot) {
                 if (earningsSnapshot.connectionState ==
                     ConnectionState.waiting) {
-                  return CircularProgressIndicator();
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
                 } else if (earningsSnapshot.hasError) {
                   return Text('Error: ${earningsSnapshot.error}');
                 } else {
@@ -78,16 +88,18 @@ class _DriversDataListState extends State<DriversDataList> {
                         DataItem(flexValue: 1, data: driver['phoneNumber']),
                         DataItem(
                             flexValue: 1,
-                            data: driver['vehiculePlateNumber'] +
+                            data: splitPlateNumber(
+                                    driver['vehiculePlateNumber']) +
                                 '\n' +
                                 driver['vehiculeModel'] +
                                 '\n' +
                                 driver['vehiculeColor']),
                         DataItem(
-                            flexValue: 1, data: '\$ ' + earningsSnapshot.data!),
+                            flexValue: 1, data: '\$ ${earningsSnapshot.data!}'),
                         DataItem(
                             flexValue: 1,
                             data: driver['isBlocked'].toString(),
+                            driverId: driver['uid'],
                             isButton: true),
                       ],
                     ),
