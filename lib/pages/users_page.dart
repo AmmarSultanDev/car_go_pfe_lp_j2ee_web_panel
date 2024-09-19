@@ -43,7 +43,7 @@ class _UsersPageState extends State<UsersPage> {
                 ],
               ),
               // display data
-              UsersDataList(),
+              const UsersDataList(),
             ],
           ),
         ),

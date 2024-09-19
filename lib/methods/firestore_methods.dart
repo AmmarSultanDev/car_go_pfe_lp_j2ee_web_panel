@@ -13,7 +13,7 @@ class FirestoreMethods {
       // create a list of drivers
 
       // loop through drivers data
-      driversData.docs.forEach((driver) {
+      for (var driver in driversData.docs) {
         // create a driver object
         Driver driverObj = Driver(
           id: driver['uid'],
@@ -29,7 +29,7 @@ class FirestoreMethods {
         );
         // add driver object to drivers list
         drivers.add(driverObj);
-      });
+      }
     } catch (e) {
       // handle error
     }
