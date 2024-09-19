@@ -1,3 +1,4 @@
+import 'package:car_go_pfe_lp_j2ee_web_panel/methods/firestore_methods.dart';
 import 'package:car_go_pfe_lp_j2ee_web_panel/widgets/data_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -49,21 +50,13 @@ class _DriversDataListState extends State<DriversDataList> {
           );
         }
 
-        Future<String> getTotalEarnings(String driverId) async {
-          DocumentSnapshot earningsDoc = await FirebaseFirestore.instance
-              .collection('earnings')
-              .doc(driverId)
-              .get();
-          return earningsDoc['totalEarnings'].toString();
-        }
-
         return ListView.builder(
           shrinkWrap: true,
           itemCount: snapshot.data!.docs.length,
           itemBuilder: (BuildContext context, int index) {
             DocumentSnapshot driver = snapshot.data!.docs[index];
             return FutureBuilder<String>(
-              future: getTotalEarnings(driver['uid']),
+              future: FirestoreMethods().getDriverTotalEarnings(driver['uid']),
               builder: (BuildContext context,
                   AsyncSnapshot<String> earningsSnapshot) {
                 if (earningsSnapshot.connectionState ==

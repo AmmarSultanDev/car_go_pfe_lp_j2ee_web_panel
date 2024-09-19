@@ -1,3 +1,4 @@
+import 'package:car_go_pfe_lp_j2ee_web_panel/methods/firestore_methods.dart';
 import 'package:car_go_pfe_lp_j2ee_web_panel/widgets/data_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,17 +12,7 @@ class UsersDataList extends StatefulWidget {
 }
 
 class _UsersDataListState extends State<UsersDataList> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  @override
-  void initState() {
-    super.initState();
-    signInAnonymously();
-  }
-
-  void signInAnonymously() async {
-    await _auth.signInAnonymously();
-  }
+  FirestoreMethods _firestoreMethods = FirestoreMethods();
 
   @override
   Widget build(BuildContext context) {
@@ -45,25 +36,46 @@ class _UsersDataListState extends State<UsersDataList> {
           itemCount: snapshot.data!.docs.length,
           itemBuilder: (BuildContext context, int index) {
             DocumentSnapshot passenger = snapshot.data!.docs[index];
-            return Expanded(
-              child: Row(
-                children: [
-                  DataItem(flexValue: 1, data: passenger['uid']),
-                  DataItem(flexValue: 1, data: passenger['displayName']),
-                  DataItem(flexValue: 1, data: passenger['email']),
-                  DataItem(flexValue: 1, data: passenger['phoneNumber']),
-                  DataItem(
-                      flexValue: 1,
-                      data: '\$ ${passenger['totalExpenses'].toString()}'),
-                  DataItem(
-                      flexValue: 1,
-                      data: passenger['numberOfTrips'].toString()),
-                  DataItem(
-                      flexValue: 1,
-                      data: passenger['isBlocked'].toString(),
-                      isButton: true),
-                ],
-              ),
+            return FutureBuilder<List<dynamic>>(
+              future: Future.wait([
+                _firestoreMethods.getPassengerTotalExpenses(passenger['uid']),
+                _firestoreMethods.getPassengerNumberOfTrips(passenger['uid']),
+              ]),
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<dynamic>> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else {
+                  return Expanded(
+                    child: Row(
+                      children: [
+                        DataItem(flexValue: 1, data: passenger['uid']),
+                        DataItem(flexValue: 1, data: passenger['displayName']),
+                        DataItem(flexValue: 1, data: passenger['email']),
+                        DataItem(flexValue: 1, data: passenger['phoneNumber']),
+                        DataItem(
+                          flexValue: 1,
+                          data: snapshot.data![0].toStringAsFixed(2),
+                        ),
+                        DataItem(
+                          flexValue: 1,
+                          data: snapshot.data![1].toString(),
+                        ),
+                        DataItem(
+                          flexValue: 1,
+                          data: passenger['isBlocked'].toString(),
+                          isButton: true,
+                          passengerId: passenger['uid'],
+                        ),
+                      ],
+                    ),
+                  );
+                }
+              },
             );
           },
         );

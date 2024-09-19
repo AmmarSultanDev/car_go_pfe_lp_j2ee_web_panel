@@ -53,17 +53,42 @@ class DataItem extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         vertical: 24, horizontal: 16),
                     child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: data == 'true'
+                            ? Theme.of(context).colorScheme.primary
+                            : Theme.of(context).colorScheme.error,
+                      ),
                       onPressed: () async {
                         // block or unblock driver
                         if (data == 'true') {
+                          if (passengerId != null) {
+                            // unblock passenger
+                            await FirestoreMethods()
+                                .unblockPassenger(passengerId!);
+                          }
                           // unblock driver
-                          await FirestoreMethods().unblockDriver(driverId!);
+                          if (driverId != null) {
+                            await FirestoreMethods().unblockDriver(driverId!);
+                          }
                         } else {
                           // block driver
-                          await FirestoreMethods().blockDriver(driverId!);
+                          if (passengerId != null) {
+                            // block passenger
+                            await FirestoreMethods()
+                                .blockPassenger(passengerId!);
+                          }
+                          if (driverId != null) {
+                            await FirestoreMethods().blockDriver(driverId!);
+                          }
                         }
                       },
-                      child: Text(data == 'true' ? 'Unblock' : 'Block'),
+                      child: Text(
+                        data == 'true' ? 'Unblock' : 'Block',
+                        style: TextStyle(
+                            color: data == 'true'
+                                ? Theme.of(context).colorScheme.onPrimary
+                                : Theme.of(context).colorScheme.onError),
+                      ),
                     ),
                   ),
                 ),
