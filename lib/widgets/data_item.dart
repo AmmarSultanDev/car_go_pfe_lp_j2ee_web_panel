@@ -24,12 +24,15 @@ class DataItem extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: Theme.of(context).scaffoldBackgroundColor,
               ),
-              child: Image.network(
-                data,
-                errorBuilder: (context, error, stackTrace) {
-                  print('Error loading image: $error');
-                  return const Text('Error loading image');
-                },
+              child: CircleAvatar(
+                radius: 30,
+                child: Image.network(
+                  data,
+                  errorBuilder: (context, error, stackTrace) {
+                    print('Error loading image: $error');
+                    return const Text('Error loading image');
+                  },
+                ),
               ),
             ),
           )
