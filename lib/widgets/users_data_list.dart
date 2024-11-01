@@ -12,7 +12,7 @@ class UsersDataList extends StatefulWidget {
 }
 
 class _UsersDataListState extends State<UsersDataList> {
-  FirestoreMethods _firestoreMethods = FirestoreMethods();
+  final FirestoreMethods _firestoreMethods = FirestoreMethods();
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +68,7 @@ class _UsersDataListState extends State<UsersDataList> {
                         DataItem(
                           flexValue: 1,
                           data: passenger['isBlocked'].toString(),
-                          isButton: true,
+                          isBlockButton: true,
                           passengerId: passenger['uid'],
                         ),
                       ],

@@ -7,7 +7,8 @@ class DataItem extends StatelessWidget {
     required this.flexValue,
     required this.data,
     this.isImage = false,
-    this.isButton = false,
+    this.isBlockButton = false,
+    this.isShowMoreButton = false,
     this.driverId,
     this.passengerId,
   });
@@ -15,7 +16,8 @@ class DataItem extends StatelessWidget {
   final int flexValue;
   final String data;
   final bool isImage;
-  final bool isButton;
+  final bool isBlockButton;
+  final bool isShowMoreButton;
   final String? driverId;
   final String? passengerId;
 
@@ -40,7 +42,7 @@ class DataItem extends StatelessWidget {
               ),
             ),
           )
-        : isButton
+        : isBlockButton
             ? Expanded(
                 flex: flexValue,
                 child: Container(
@@ -93,19 +95,55 @@ class DataItem extends StatelessWidget {
                   ),
                 ),
               )
-            : Expanded(
-                flex: flexValue,
-                child: Container(
-                  height: 80,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Theme.of(context).dividerColor),
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: SelectableText(data),
-                  ),
-                ),
-              );
+            : isShowMoreButton
+                ? Expanded(
+                    flex: flexValue,
+                    child: Container(
+                      height: 80,
+                      decoration: BoxDecoration(
+                        border:
+                            Border.all(color: Theme.of(context).dividerColor),
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 24, horizontal: 16),
+                        child: Row(
+                          children: [
+                            Text(data),
+                            const Spacer(),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.primary,
+                              ),
+                              onPressed: () {
+                                // show more data
+                              },
+                              child: Icon(
+                                Icons.more_horiz,
+                                color: Theme.of(context).colorScheme.onPrimary,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                : Expanded(
+                    flex: flexValue,
+                    child: Container(
+                      height: 80,
+                      decoration: BoxDecoration(
+                        border:
+                            Border.all(color: Theme.of(context).dividerColor),
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: SelectableText(data),
+                      ),
+                    ),
+                  );
   }
 }

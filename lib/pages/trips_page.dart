@@ -1,4 +1,5 @@
 import 'package:car_go_pfe_lp_j2ee_web_panel/widgets/header_item.dart';
+import 'package:car_go_pfe_lp_j2ee_web_panel/widgets/tirps_data_list.dart';
 import 'package:flutter/material.dart';
 
 class TripsPage extends StatefulWidget {
@@ -44,6 +45,7 @@ class _TripsPageState extends State<TripsPage> {
                   HeaderItem(flexValue: 1, headerTitle: 'TRIP DURATION'),
                 ],
               ),
+              const TirpsDataList(),
               // display data
             ],
           ),
