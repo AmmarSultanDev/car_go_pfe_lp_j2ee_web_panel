@@ -80,10 +80,10 @@ class _DriversDataListState extends State<DriversDataList> {
                         DataItem(flexValue: 1, data: driver['email']),
                         DataItem(flexValue: 1, data: driver['phoneNumber']),
                         DataItem(
-                            flexValue: 1,
-                            data:
-                                '${splitPlateNumber(driver['vehiculePlateNumber']) + '\n' + driver['vehiculeModel']}\n' +
-                                    driver['vehiculeColor']),
+                          flexValue: 1,
+                          data:
+                              '${splitPlateNumber(driver['vehiculePlateNumber'])}\n${driver['vehiculeModel']}\n${driver['vehiculeColor']}',
+                        ),
                         DataItem(
                             flexValue: 1, data: '\$ ${earningsSnapshot.data!}'),
                         DataItem(

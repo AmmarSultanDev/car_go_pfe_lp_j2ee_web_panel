@@ -1,7 +1,6 @@
 import 'package:car_go_pfe_lp_j2ee_web_panel/methods/firestore_methods.dart';
 import 'package:car_go_pfe_lp_j2ee_web_panel/widgets/data_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class UsersDataList extends StatefulWidget {
