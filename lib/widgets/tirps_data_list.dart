@@ -86,6 +86,14 @@ class _TirpsDataListState extends State<TirpsDataList> {
                     DataItem(
                       flexValue: 1,
                       isShowMoreButton: true,
+                      pickUpLocationLat: trip['pickUpLocationCoordinates']
+                          ['latitude'],
+                      pickUpLocationLng: trip['pickUpLocationCoordinates']
+                          ['longitude'],
+                      dropOffLocationLat: trip['driverInfo']
+                          ['destinationCoordinates']['latitude'],
+                      dropOffLocationLng: trip['driverInfo']
+                          ['destinationCoordinates']['longitude'],
                       data: _calculateTripDuration(
                           trip['createdAt'], trip['endedAt']),
                     ),

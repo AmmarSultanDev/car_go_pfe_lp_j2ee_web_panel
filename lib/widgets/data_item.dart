@@ -1,5 +1,6 @@
 import 'package:car_go_pfe_lp_j2ee_web_panel/methods/firestore_methods.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DataItem extends StatelessWidget {
   const DataItem({
@@ -11,6 +12,10 @@ class DataItem extends StatelessWidget {
     this.isShowMoreButton = false,
     this.driverId,
     this.passengerId,
+    this.pickUpLocationLat,
+    this.pickUpLocationLng,
+    this.dropOffLocationLat,
+    this.dropOffLocationLng,
   });
 
   final int flexValue;
@@ -20,6 +25,10 @@ class DataItem extends StatelessWidget {
   final bool isShowMoreButton;
   final String? driverId;
   final String? passengerId;
+  final String? pickUpLocationLat;
+  final String? pickUpLocationLng;
+  final double? dropOffLocationLat;
+  final double? dropOffLocationLng;
 
   @override
   Widget build(BuildContext context) {
@@ -107,18 +116,25 @@ class DataItem extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 24, horizontal: 16),
-                        child: Row(
+                            vertical: 8, horizontal: 8),
+                        child: Column(
                           children: [
                             Text(data),
-                            const Spacer(),
+                            const SizedBox(height: 5),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor:
                                     Theme.of(context).colorScheme.primary,
                               ),
                               onPressed: () {
-                                // show more data
+                                String;
+
+                                // navigate to google maps
+                                launchGoogleMapFromSrourceToDestination(
+                                    pickUpLocationLat!,
+                                    pickUpLocationLng!,
+                                    dropOffLocationLat!,
+                                    dropOffLocationLng!);
                               },
                               child: Icon(
                                 Icons.more_horiz,
@@ -145,5 +161,20 @@ class DataItem extends StatelessWidget {
                       ),
                     ),
                   );
+  }
+
+  void launchGoogleMapFromSrourceToDestination(
+      String pickUpLocationLatitude,
+      String pickUpLocationLongitude,
+      double dropOffLocationLatitude,
+      double dropOffLocationLongitude) async {
+    String directionAPIUrl =
+        'https://www.google.com/maps/dir/?api=1&origin=$pickUpLocationLatitude,$pickUpLocationLongitude&destination=$dropOffLocationLatitude,$dropOffLocationLongitude&travelmode=driving&dir_action=navigate';
+
+    if (await canLaunchUrl(Uri.parse(directionAPIUrl))) {
+      launchUrl(Uri.parse(directionAPIUrl));
+    } else {
+      throw 'Could not launch $directionAPIUrl';
+    }
   }
 }
